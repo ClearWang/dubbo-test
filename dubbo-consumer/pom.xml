@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>dubbo-consumer</artifactId>
+
+  <parent>
+    <groupId>com.clewill</groupId>
+    <artifactId>dubbo-2.6-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+
+  <!--添加dependencyManagement的目的是可以依赖poms中的版本号，通过这个配置可以使得版本号可以在poms中统一管理-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.clewill</groupId>
+        <artifactId>poms</artifactId>
+        <version>1.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+    </dependency>
+
+    <!--zk相关配置 begin-->
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+    </dependency>
+    <!--zk相关配置 end-->
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.clewill</groupId>
+      <artifactId>dubbo-interface</artifactId>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <finalName>dubbo-consumer</finalName>
+  </build>
+</project>

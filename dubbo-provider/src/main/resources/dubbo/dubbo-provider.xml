@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息（显示在管理端的应用名，要不同于消费者），用于计算依赖关系 -->
+	<dubbo:application name="demo-provider"/>
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<!--提供者会将服务注册到zookeeper的这个端口下localhost：2080-->
+	<dubbo:protocol name="dubbo" port="2080"/>
+	<!--dubbo 2.6支持Embedded tomcat support  本质是将tomcat已服务提供者的形式注册的zk的8888端口下localhost：8888-->
+	<dubbo:protocol name="rest" port="8888" server="tomcat"/>
+	<!--设置连接超时时间和线程池个数-->
+<!--timeout：连接超时时间，单位为ms 这里设置为10秒
+		threadpool:线程池设置策略
+			fixed： 固定大小线程池，启动时建立线程，不关闭，一直持有。(缺省)
+			cached 缓存线程池，空闲一分钟自动删除，需要时重建。
+			limited 可伸缩线程池，但池中的线程数只会增长不会收缩。(为避免收缩时突然来了大流量引起的性能问题)。
+		threads：线程池个数
+		accepts：可接受的最大连接数
+
+		-->
+	<dubbo:provider timeout="10000" threadpool="fixed" threads="500" accepts="1000" />
+
+	<bean id="demoService" class="com.clewill.service.impl.ServiceImpl"/>
+	<!-- 支持多协议是要通过protocol属性指定使用的协议  这里声明要注册到zk的提供者和对应的协议（依赖的bean的位置以及要支持的rest服务的bean位置（即tomcat服务））
+	 -->
+	<dubbo:service interface="com.clewill.provider.service.ServiceFacade" ref="demoService"
+		protocol="dubbo,rest"/>
+</beans>

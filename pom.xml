@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.clewill</groupId>
+  <artifactId>dubbo-2.6-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <!--<version>1.0</version>-->
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>poms</module>
+    <module>dubbo-consumer</module>
+    <module>dubbo-provider</module>
+    <module>dubbo-interface</module>
+    <module>dubbo-utils</module>
+    <module>dubbo-log</module>
+  </modules>
+
+
+  <properties>
+    <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+    <java.version>1.8</java.version>
+    <!--<java.version>1.7</java.version>-->
+    <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
+  </properties>
+
+
+  <build>
+    <finalName>dubbo-2.6-test</finalName>
+    <plugins>
+      <!--这些插件在该父项目中写了，子项目中就不需要再添加了-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <useDefaultDelimiters>true</useDefaultDelimiters>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
